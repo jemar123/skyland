@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block title %}| Listings {% endblock %}
+{% block content %}
+    <!-- Banner Area -->
+    <div id="non_home_banner">
+        <div class="wrapper">
+            <div class="non_home_banner_con">
+                <h3>Browse Our Properties</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at diam semper, tincidunt odio sagittis, ultrices libero.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Own Breadcrumbs -->
+    <div class="breadcrumbs">
+        <div class="wrapper">
+            <div class="breadcrumbs_con">
+                
+                <div class="bc_link_container">
+                    <ul>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li>Browse Listing</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Latest Listings -->
+    <div id="listings">
+        <div class="wrapper">
+            <div class="listings_con">
+                
+                {% if listings %}
+                    {% for listing in listings %}
+                        <!-- Listing 1 -->
+                        <section>
+                            <div class="list_price">
+                                <h3>₱ {{ listing.price | intcomma }}</h3>
+                            </div>
+                            <div class="list_img">
+                                <img src="{{ listing.photo_main.url }}">
+                            </div>
+                            <div class="list_title">
+                                <h3>{{ listing.title }}</h3>
+                            </div>
+                            <div class="list_address">
+                                <h3><i class="fa fa-map-marker"></i>{{ listing.city }} {{ listing.state }}, {{ listing.zipcode }}</h3>
+                            </div>
+                            <div class="list_amenities">
+                                <ul>
+                                    <li><i class="fa fa-th-large"></i>Sqft: {{ listing.sqft }}</li>
+                                    <li><i class="fa fa-car"></i>Garage: {{ listing.garage }}</li>
+                                    <li><i class="fa fa-bed"></i>Bedrooms: {{ listing.bedrooms }}</li>
+                                    <li><i class="fa fa-bath"></i>Bathrooms: {{ listing.bathrooms }}</li>
+                                </ul>
+                            </div>
+                            <div class="list_realtor">
+                                <h3><i class="fa fa-user"></i>{{ listing.realtor }}</h3>
+                            </div>
+                            <div class="list_date">
+                                <h3><i class="fa fa-clock-o"></i>{{ listing.list_date|timesince }}</h3>
+                            </div>
+                            <div class="list_submit">
+                                <a href="{% url 'listing' listing.id %}">More Info</a>
+                            </div>
+                        </section>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if listings.has_previous %}
+                            <a href="?page=1">&laquo; </a>
+                            <a href="?page={{ listings.previous_page_number }}"></a>
+                        {% endif %}
+                
+                        <span class="current">
+                            Page {{ listings.number }} of {{ listings.paginator.num_pages }}
+                        </span>
+                
+                        {% if listings.has_next %}
+                            <a href="?page={{ listings.next_page_number }}"></a>
+                            <a href="?page={{ listings.paginator.num_pages }}"> &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

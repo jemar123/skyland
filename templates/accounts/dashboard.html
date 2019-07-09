@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}| Dashboard {% endblock %}
+{% block content %}
+
+    <!-- Banner Area -->
+    <div id="non_home_banner">
+        <div class="wrapper">
+            <div class="non_home_banner_con">
+                <h3>Hi {{ user.first_name }}!</h3>
+                <p>Manage your Skyland Real Estate account</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Own Breadcrumbs -->
+    <div class="breadcrumbs">
+        <div class="wrapper">
+            <div class="breadcrumbs_con">
+                
+                <div class="bc_link_container">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li>Dashboard</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard">
+        <div class="wrapper">
+            <div class="dashboard_con">
+                
+                <div class="dashboard_welcome">
+                    <h3>Welcome {{ user.first_name }}</h3>
+                    <p>Here are the property listings that you have inquired about</p>
+                </div>
+                <div class="dashboard_list_heading">
+                    <ul>
+                        <li>#</li>
+                        <li>Property</li>
+                        <li>Action</li>
+                    </ul>
+                </div>
+                {% if contacts %}
+                    <div class="dashboard_list">
+                        <ul>
+                            {% for contact in contacts %}
+                                <li>{{ contact.id }}</li>
+                                <li>{{ contact.listing }}</li>
+                                <li><a href="{% url 'listing' contact.listing_id %}">View Listing</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% else %}
+                    You have no inquiries!
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

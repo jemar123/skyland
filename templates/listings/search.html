@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}| Search Properties {% endblock %}
+{% block content %}
+    <!-- Banner Area -->
+    <div id="non_home_banner">
+        <div class="wrapper">
+            <div class="non_home_banner_con listings_search_con">
+
+                <div class="bnr_info">
+                    <div class="forms">
+                        <form action="{% url 'search' %}">
+
+                            <div class="upper_forms">
+                                <input type="text" name="keyword" placeholder="Keyword (Pool, Garage, etc)" value="{{ values.keyword }}">
+                                <input type="text" name="city" placeholder="City" value="{{ values.city }}">
+                                <select name="state">
+                                    <option selected disabled>State (All)</option>
+                                    {% for key,value in state_choices.items %}
+                                        <option value="{{ key }}"
+                                            {% if key == values.state %}
+                                                selected
+                                            {% endif %}
+                                        >{{ value }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="lower_forms">
+
+                                <select name="bedrooms">
+                                    <option selected disabled>Bedrooms (All)</option>
+                                    {% for key,value in bedrooms_choices.items %}
+                                        <option value="{{ key }}"
+                                            {% if key == values.bedrooms %}
+                                                selected
+                                            {% endif %}
+                                        >{{ value }}</option>
+                                    {% endfor %}
+                                </select>
+
+                                <select name="price">
+                                    <option selected disabled>Max Price (Any)</option>
+                                    {% for key,value in price_choices.items %}
+                                        <option value="{{ key }}"
+                                            {% if key == values.price %}
+                                                selected
+                                            {% endif %}
+                                        >{{ value }}</option>
+                                    {% endfor %}
+                                </select>
+
+                            </div>
+
+                            <div class="search_submit">
+                                <button type="submit">Submit Search</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Own Breadcrumbs -->
+    <div class="breadcrumbs">
+        <div class="wrapper">
+            <div class="breadcrumbs_con">
+                
+                <div class="bc_link_container">
+                    <ul>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'listings' %}">Browse Listing</a></li>
+                        <li>Search Results</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Latest Listings -->
+    <div id="listings">
+        <div class="wrapper">
+            <div class="listings_con">
+
+                {% if listings %}
+                    {% for listing in listings %}
+                    <!-- Listing 1 -->
+                    <section>
+                        <div class="list_price">
+                            <h3>₱ {{ listing.price|intcomma }}</h3>
+                        </div>
+                        <div class="list_img">
+                            <img src="{{ listing.photo_main.url }}">
+                        </div>
+                        <div class="list_title">
+                            <h3>{{ listing.title }}</h3>
+                        </div>
+                        <div class="list_address">
+                            <h3><i class="fa fa-map-marker"></i>{{ listing.city }} {{ listing.state }}, {{ listing.zipcode }}</h3>
+                        </div>
+                        <div class="list_amenities">
+                            <ul>
+                                <li><i class="fa fa-th-large"></i>Sqft: {{ listing.sqft }}</li>
+                                <li><i class="fa fa-car"></i>Garage: {{ listing.garage }}</li>
+                                <li><i class="fa fa-bed"></i>Bedrooms: {{ listing.bedrooms }}</li>
+                                <li><i class="fa fa-bath"></i>Bathrooms: {{ listing.bathrooms }}</li>
+                            </ul>
+                        </div>
+                        <div class="list_realtor">
+                            <h3><i class="fa fa-user"></i>{{ listing.realtor }}</h3>
+                        </div>
+                        <div class="list_date">
+                            <h3><i class="fa fa-clock-o"></i>{{ listing.list_date|timesince }}</h3>
+                        </div>
+                        <div class="list_submit">
+                            <a href="{% url 'listing' listing.id %}">More Info</a>
+                        </div>
+                    </section>
+                    {% endfor %}
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

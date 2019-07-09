@@ -1,0 +1,12 @@
+{% extends 'admin/base.html' %}
+{% block title %} Skyland Real Estate | Admin Panel {% endblock %}
+{% load static %}
+
+{% block branding %}
+    <h1 id="head">
+        <img src="{% static 'images/main_logo.png' %}" alt="Skyland Real Estate" height="50" width="80"> Skyland Admin Panel
+    </h1>
+{% endblock %}
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+{% endblock %}

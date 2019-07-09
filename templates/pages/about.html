@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}| About {% endblock %}
+{% block content %}
+    <!-- Banner Area -->
+    <div id="non_home_banner">
+        <div class="wrapper">
+            <div class="non_home_banner_con">
+                <h3>About Skyland Real Estate</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at diam semper, tincidunt odio sagittis, ultrices libero.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Own Breadcrumbs -->
+    <div class="breadcrumbs">
+        <div class="wrapper">
+            <div class="breadcrumbs_con">
+                
+                <div class="bc_link_container">
+                    <ul>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li>About Skyland Real Estate</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- About Content -->
+    <div id="main_area">
+            <div class="wrapper">
+                <div class="main_con">
+
+                    <main>
+                        <h1 class="h1_title">We Search Perfect Home For You</h1>
+                        <img src="{% static 'images/about_img.jpg' %}">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ullamcorper pulvinar ipsum nec ornare. Suspendisse pulvinar arcu vel tincidunt tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse ex augue, sagittis quis dui et, molestie aliquam magna. Sed ut magna ut nisi laoreet consequat quis in dui. Vestibulum maximus dui at urna lacinia bibendum. Maecenas sem erat, efficitur eu venenatis a, tincidunt non ligula.</p>
+                    </main>
+                
+                    
+                {% for mvp_realtor in mvp_realtors %}
+                    <aside class="sidebar">
+                        <section>
+                                <div class="about_side_img">
+                                    <img src="{{ mvp_realtor.photo.url }}">
+                                </div>
+                                <div class="about_side_title">
+                                    <h3>Best Seller of the Month</h3>
+                                </div>
+                                <div class="about_side_realtor">
+                                    <h3>{{ mvp_realtor.name }}</h3>
+                                </div>
+                                <div class="about_side_realtor_description">
+                                    <p>{{ mvp_realtor.description }}</p>
+                                </div>
+                        </section>
+                    </aside>
+                {% endfor %}
+
+                <div class="clearfix"></div>
+            </div>
+            </div>
+    </div>
+
+    <!-- Bottom Area -->
+    <div id="about_bottom">
+        <div class="wrapper">
+            <div class="about_bottom_con">
+                <h3>Browse Properties</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ullamcorper pulvinar ipsum nec ornare. Suspendisse pulvinar arcu vel tincidunt tempor.</p>
+                <a href="{% url 'listings' %}">View Our Featured Listings</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Area -->
+    <div id="about_bottom2">
+        <div class="wrapper">
+            <div class="about_bottom2_con">
+                <h2>Meet The Team</h2>
+                <div class="btm2_team">
+
+                    {% for realtor in realtors %}
+                        <section>
+                            <div class="btm2_img_con">
+                                <img src="{{ realtor.photo.url }}">
+                            </div>
+                            <h3>{{ realtor.name }}</h3>
+                            <span>Realtor</span>
+                            <small>{{ realtor.phone }}</small>
+                            <q>{{ realtor.email }}</q>
+                        </section>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

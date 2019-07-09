@@ -1,0 +1,6 @@
+#head img{width: 100%;max-width: 56px;}
+#header{color: #fff;background: #1f628e;}
+#branding h1, #branding h1 a:link, #branding h1 a:visited{color: #fff; font-weight: bold}
+.module h2, .module caption, .inline-group h2{background: #21ab4a}
+div.breadcrumbs{background: #21ab4a}
+.button, input[type=submit], input[type=button], .submit-row input, a.button{background: #1f628e}

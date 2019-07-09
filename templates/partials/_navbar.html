@@ -1,0 +1,71 @@
+{% load static %}
+<div class="header_nav">
+        <!-- Header Area -->
+        <header>
+            <div class="wrapper">
+                <div class="header_con">
+                    <div class="logo">
+                        <a href="{% url 'index' %}"><img src="{% static 'images/main_logo.png' %}" alt=""/></a>	
+                        </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Nav Area -->
+        <small class="nav_toggle_button">MENU
+            <i class="fa fa-navicon fa-2x">&nbsp;&nbsp;&nbsp;&nbsp;</i>
+        </small>
+        <div class="wrapper">
+        <nav>
+            <div class="wrapper">
+                <div class="nav_con">
+                    <ul>
+                        <li><a href="{% url 'index' %}" class="
+                            {% if '/' == request.path %}
+                                active
+                            {% endif %}
+                        ">Home</a></li>
+                        <li><a href="{% url 'about' %}" class="
+                            {% if 'about' in request.path %}
+                                active
+                            {% endif %}    
+                        ">About</a></li>
+                        <li><a href="{% url 'listings' %}" class="
+                            {% if 'listings' in request.path %}
+                                active
+                            {% endif %}     
+                        ">Featured Listings</a></li>
+                    </ul>
+                    {% if user.is_authenticated %}
+                    <ul class="nav_right">
+                        <li><a href="{% url 'dashboard' %}" class="
+                            {% if 'dashboard' in request.path %}
+                                active
+                            {% endif %}       
+                        "><i class="fa fa-dashboard"></i>My Dashboard</a></li>
+                        <li><a href="javascript:{document.getElementById('logout').submit()}"><i class="fa fa-sign-out"></i>Logout</a>
+                        <form action="{% url 'logout' %}" method="POST" id="logout">
+                            {% csrf_token %}
+                            <input type="hidden">
+                        </form>
+                        </li>
+                    </ul>
+                    {% else %}
+                    <ul class="nav_right">
+                        <li><a href="{% url 'register' %}" class="
+                            {% if 'register' in request.path %}
+                                active
+                            {% endif %}       
+                        "><i class="fa fa-user-plus"></i>Register</a></li>
+                        <li><a href="{% url 'login' %}" class="
+                            {% if 'login' in request.path %}
+                                active
+                            {% endif %}     
+                        "><i class="fa fa-sign-in"></i>Login</a></li>
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+        </div>
+    </div>
